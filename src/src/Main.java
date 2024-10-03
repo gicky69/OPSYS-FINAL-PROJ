@@ -14,19 +14,20 @@ public class Main {
         System.out.println("N: ");
         int n = sc.nextInt();
 
-        int[][] p = new int[n][5];
-        System.out.println("Enter AT and BT");
+        int[][] p = new int[n][6];
+        System.out.println("Enter AT, BT, Priority:");
         for (int i =0;i<n;i++) {
             System.out.println("P" + (i+1) + ": ");
             p[i][0] = i + 1;
             p[i][1] = sc.nextInt();
             p[i][2] = sc.nextInt();
+            p[i][3] = sc.nextInt();
         }
 
         System.out.println("UNSORTED TABLE" );
-        System.out.println("P\tAT\tBT");
+        System.out.println("P\tAT\tBT\tPriority");
         for (int i = 0;i<n;i++) {
-            System.out.println("P" + p[i][0] + "\t" + p[i][1] + "\t" + p[i][2]);
+            System.out.println("P" + p[i][0] + "\t" + p[i][1] + "\t" + p[i][2] + "\t" + p[i][3]);
         }
         System.out.println();
 

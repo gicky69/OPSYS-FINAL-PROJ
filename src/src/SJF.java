@@ -10,37 +10,46 @@ public class SJF {
             int ix = i;
 
             for (int j = i + 1;j < n;j++) {
-                if (p[j][1] < p[ix][1]) {
+                if (p[j][2] < p[ix][2]) {
                     ix = j;
                 }
             }
 
-            int temp = p[i][1];
-            p[i][1] = p[ix][1];
-            p[ix][1] = temp;
+            int temp = p[i][2];
+            p[i][2] = p[ix][2];
+            p[ix][2] = temp;
 
             temp = p[i][0];
             p[i][0] = p[ix][0];
             p[ix][0] = temp;
+
+            temp = p[i][1];
+            p[i][1] = p[ix][1];
+            p[ix][1] = temp;
+
+            temp = p[i][3];
+            p[i][3] = p[ix][3];
+            p[ix][3] = temp;
+
         }
 
         // select Minimum BT
-        p[0][3] = 0;
+        p[0][4] = 0;
         // Calculate WT
         for (int i=0;i<n;i++) {
-            p[i][3] = 0;
+            p[i][4] = 0;
             for (int j = 0;j < i;j++) {
-                p[i][3] += p[j][1];
+                p[i][4] += p[j][2];
             }
-            total += p[i][3];
+            total += p[i][4];
         }
         avg_wt = (float)total / n;
         total = 0;
 
         // Calculate TAT
         for (int i = 0;i < n;i++) {
-            p[i][4] = p[i][1] + p[i][3];
-            total += p[i][4];
+            p[i][5] = p[i][2] + p[i][4];
+            total += p[i][5];
         }
         avg_tat = (float)total / n;
 
@@ -50,9 +59,10 @@ public class SJF {
         System.out.flush();
 
         // Print Unsorted Table
-        System.out.println("P\tBT\tAT\tWT\tTAT");
+        System.out.println("SJF Non Preemptive");
+        System.out.println("P\tAT\tBT\tPT\tWT\tTAT");
         for (int i = 0;i < n;i++) {
-            System.out.println("P" + p[i][0] + "\t" + p[i][1] + "\t" + p[i][2] + "\t" + p[i][3] + "\t" + p[i][4]);
+            System.out.println("P" + p[i][0] + "\t" + p[i][1] + "\t" + p[i][2] + "\t" + p[i][3] + "\t" + p[i][4]+ "\t" + p[i][5]);
         }
 
         System.out.println("Average Waiting Time: " + avg_wt);
