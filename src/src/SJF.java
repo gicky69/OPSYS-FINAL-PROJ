@@ -49,7 +49,7 @@ public class SJF {
             }
             total += p[i][4];
         }
-        avg_wt = (float)total / n;
+        avgwt = (float)total / n;
         total = 0;
 
         // Calculate TAT
@@ -57,7 +57,7 @@ public class SJF {
             p[i][5] = p[i][2] + p[i][4];
             total += p[i][5];
         }
-        avg_tat = (float)total / n;
+        avgtat = (float)total / n;
 
 
         // clear screen
@@ -71,8 +71,8 @@ public class SJF {
             System.out.println("P" + p[i][0] + "\t" + p[i][1] + "\t" + p[i][2] + "\t" + p[i][3] + "\t" + p[i][4]+ "\t" + p[i][5]);
         }
 
-        System.out.println("Average Waiting Time: " + avg_wt);
-        System.out.println("Average Turnaround Time: " + avg_tat);
+        System.out.println("Average Waiting Time: " + avgwt);
+        System.out.println("Average Turnaround Time: " + avgtat);
 
         System.out.println("Gantt Chart");
         for (int i = 0; i < n; i++) {
