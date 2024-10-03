@@ -2,7 +2,7 @@ public class SJF {
     public SJF(int p[][]) {
         // SJF Non Preemptive
         int n = p.length;
-        float avg_wt, avg_tat;
+        float avgwt, avgtat;
         int total = 0; // tmep
 
         // Sort P by BT
@@ -15,25 +15,31 @@ public class SJF {
                 }
             }
 
+            // Sort BT
             int temp = p[i][2];
             p[i][2] = p[ix][2];
             p[ix][2] = temp;
 
+            // Sort PROCESS NUMBER
             temp = p[i][0];
             p[i][0] = p[ix][0];
             p[ix][0] = temp;
 
+            // Sort AT
             temp = p[i][1];
             p[i][1] = p[ix][1];
             p[ix][1] = temp;
 
+            // Sort PRIORITY
             temp = p[i][3];
             p[i][3] = p[ix][3];
             p[ix][3] = temp;
 
         }
 
-        // select Minimum BT
+        // Set WT 0 sa nauuna sa table
+        // compute na yung WT
+        // then get average
         p[0][4] = 0;
         // Calculate WT
         for (int i=0;i<n;i++) {
