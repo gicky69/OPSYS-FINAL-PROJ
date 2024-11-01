@@ -1,6 +1,11 @@
 import java.util.*;
 
 public class PPS {
+
+    public static List<Processes> SPI = new ArrayList<>();
+    public static List<GanttChart> GDC = new ArrayList<>();
+
+
     public PPS(int p[][]) {
         // Preemptive Priority Scheduling
         int n = p.length;
@@ -20,6 +25,11 @@ public class PPS {
         List<Processes> solvedPI = (List<Processes>) result.get("solvedPI");
         List<GanttChart> ganttChartI = (List<GanttChart>) result.get("ganttChartI");
 
+        SPI.clear();
+        GDC.clear();
+        SPI.addAll(solvedPI);
+        GDC.addAll(ganttChartI);
+
         for (Processes p1 : solvedPI) {
             System.out.println(p1.job + "\t" + p1.at + "\t" + p1.bt  + "\t" + p1.ft + "\t" + p1.tat + "\t" + p1.wat);
         }
@@ -28,6 +38,14 @@ public class PPS {
         for (GanttChart g : ganttChartI) {
             System.out.println(g.job + "\t" + g.start + "\t" + g.end);
         }
+    }
+
+    public static List<Processes> getSPI() {
+        return SPI;
+    }
+
+    public static List<GanttChart> getGDC() {
+        return GDC;
     }
 
     public static Map<String, Object> PPS(int at[], int bt[], int prio[]){
@@ -81,4 +99,5 @@ public class PPS {
         result.put("ganttChartI", ganttChart);
         return result;
     }
+
 }

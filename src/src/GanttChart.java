@@ -8,4 +8,18 @@ public class GanttChart {
         this.start = start;
         this.end = end;
     }
+
+    public int getJob() {
+        return job;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public int getEnd() {
+        return end;
+    }
+
+
 }

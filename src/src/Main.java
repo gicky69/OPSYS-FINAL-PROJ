@@ -1,13 +1,8 @@
 import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
 public class Main {
-    public Main(int p[][]) {
-
-    }
-
-
-
-    public static void main(String[] args) {
+    public static void algorithm(){ 
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
@@ -27,5 +22,12 @@ public class Main {
         // SJF sjf = new SJF(p);
         // PS nps = new PS(p);
         PPS pps = new PPS(p);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MFrame frame = new MFrame();
+            frame.setVisible(true);
+        });
     }
 }

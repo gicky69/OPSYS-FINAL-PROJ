@@ -7,6 +7,9 @@ public class SJF {
     
     Processes processes = new Processes(0, 0, 0, 0, 0);
     GanttChart ganttChart = new GanttChart(0, 0, 0);
+
+    public static List<Processes> SPI = new ArrayList<>();
+    public static List<GanttChart> GDC = new ArrayList<>();
     
     public SJF(int[][] p) {
         int n = p.length;
@@ -23,6 +26,10 @@ public class SJF {
         System.out.println("Job\tAT\tBT\tFT\tTAT\tWT");
         List<Processes> solvedPI = (List<Processes>) result.get("solvedPI");
         List<GanttChart> ganttChartI = (List<GanttChart>) result.get("ganttChartI");
+        SPI.clear();
+        GDC.clear();
+        SPI.addAll(solvedPI);
+        GDC.addAll(ganttChartI);
 
         for (Processes p1 : solvedPI) {
             System.out.println(p1.job + "\t" + p1.at + "\t" + p1.bt + "\t" + p1.ft + "\t" + p1.tat + "\t" + p1.wat);
@@ -32,6 +39,14 @@ public class SJF {
         for (GanttChart g : ganttChartI) {
             System.out.println(g.job + "\t" + g.start + "\t" + g.end);
         }
+    }
+
+    public static List<Processes> getSPI() {
+        return SPI;
+    }
+
+    public static List<GanttChart> getGDC() {
+        return GDC;
     }
 
     public static Map<String, Object> sjf(int[] at, int[] bt) {

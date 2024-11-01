@@ -6,6 +6,9 @@ public class PS {
         Arrays.sort(a, (x, y) -> Integer.compare(x[c],y[c]));
     }
 
+    public static List<Processes> SPI = new ArrayList<>();
+    public static List<GanttChart> GDC = new ArrayList<>();
+
     public PS(int p[][]) {
         int n = p.length;
         int[] at = new int[n];
@@ -22,6 +25,11 @@ public class PS {
         List<Processes> solvedPI = (List<Processes>) result.get("solvedPI");
         List<GanttChart> ganttChartI = (List<GanttChart>) result.get("ganttChartI");
 
+        SPI.clear();
+        GDC.clear();
+        SPI.addAll(solvedPI);
+        GDC.addAll(ganttChartI);
+
         for (Processes p1 : solvedPI) {
             System.out.println(p1.job + "\t" + p1.at + "\t" + p1.bt + "\t" + p1.priority + "\t" + p1.ft + "\t" + p1.tat + "\t" + p1.wat);
         }
@@ -30,6 +38,14 @@ public class PS {
         for (GanttChart g : ganttChartI) {
             System.out.println(g.job + "\t" + g.start + "\t" + g.end);
         }
+    }
+
+    public static List<Processes> getSPI() {
+        return SPI;
+    }
+
+    public static List<GanttChart> getGDC() {
+        return GDC;
     }
 
     public static Map<String, Object> NPP(int p[][]) {
