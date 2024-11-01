@@ -8,13 +8,15 @@ import javax.swing.border.*;
 import org.jdesktop.swingx.border.*;
 
 
-
 public class MFrame extends JFrame implements Runnable{
     JLabel titleLabel;
     JPanel panel;
     JRadioButton sjf, ps, pps;
     JPanel ButttonsPanel;
     JLabel title1Label;
+    JLabel title2Label;
+    JLabel title3Label;
+    JLabel title4Label;
     JButton startButton;
     JButton exitButton;
     ButtonGroup group;
@@ -24,10 +26,13 @@ public class MFrame extends JFrame implements Runnable{
     JTextField input3;
 
     DropShadowBorder shadow = new DropShadowBorder();
-    Color panelColor = new Color(255, 250, 237);
+    Color panelColor = new Color(105, 129, 141);
 
     //Result Panel
+
     ResultPanel resultPanel;
+
+
 
     Thread t = new Thread(this);
 
@@ -36,23 +41,40 @@ public class MFrame extends JFrame implements Runnable{
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.white);
-        
+
         panel = new JPanel();
         panel.setBounds(0, 0, 1280, 720);
         panel.setLayout(null);
+        panel.setBackground(new Color(45,74,83));
         add(panel);
 
         //#region Title
-        titleLabel = new JLabel("CPU SCHEDULING");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setBounds(520, 40, 300, 50);
+        titleLabel = new JLabel(" CPU SCHEDULING");
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 38));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBounds(480, 40, 400, 50);
         panel.add(titleLabel);
 
         title1Label = new JLabel("Input");
-        title1Label.setFont(new Font("Arial", Font.BOLD, 25));
-        title1Label.setBounds(150, 140, 200, 50);
+        title1Label.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        title1Label.setForeground(Color.WHITE);
+        title1Label.setBounds(140, 140, 200, 50);
         panel.add(title1Label);
 
+        title2Label = new JLabel("Arrival Time:");
+        title2Label.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        title2Label.setBounds(150,175,300,50);
+        panel.add(title2Label);
+
+        title3Label = new JLabel("Burst Time:");
+        title3Label.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        title3Label.setBounds(150,245,300,50);
+        panel.add(title3Label);
+
+        title4Label = new JLabel("Priority:");
+        title4Label.setFont(new Font("Times New Roman", Font.BOLD,12));
+        title4Label.setBounds(150,315,300,50);
+        panel.add(title4Label);
 
         ButttonsPanel = new JPanel();
         ButttonsPanel.setBounds(100, 130, 350, 450);
@@ -73,8 +95,8 @@ public class MFrame extends JFrame implements Runnable{
         input1 = new JTextField();
         // input1.setFont(f);
         input1.setBounds(50, 80, 250, 45);
-        input1.setFont(new Font("Arial", Font.PLAIN, 14));
-        input1.setBackground(Color.white);
+        input1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        input1.setBackground(new Color(203,220,235));
         input1.setMargin(new Insets(13, 13, 13, 13));
         ButttonsPanel.add(input1);
 
@@ -83,7 +105,7 @@ public class MFrame extends JFrame implements Runnable{
             public void focusGained(FocusEvent e) {
                 if (input1.getText().equals("e.g 0 2 4 6 8") && input1.getForeground().equals(Color.gray)) {
                     input1.setText("");
-                    input1.setFont(new Font("Arial", Font.PLAIN, 14));
+                    input1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
                     input1.setForeground(Color.black);
                 }
             }
@@ -92,7 +114,7 @@ public class MFrame extends JFrame implements Runnable{
             public void focusLost(FocusEvent e) {
                 if (input1.getText().equals("")) {
                     input1.setText("e.g 0 2 4 6 8");
-                    input1.setFont(new Font("Arial", Font.ITALIC, 14));
+                    input1.setFont(new Font("Times New Roman", Font.ITALIC, 14));
                     input1.setForeground(Color.gray);
                 }
             }
@@ -100,11 +122,11 @@ public class MFrame extends JFrame implements Runnable{
 
         input2 = new JTextField();
         input2.setText("e.g 2 4 6 8 10");
-        input2.setFont(new Font("Arial", Font.ITALIC, 14));
+        input2.setFont(new Font("Times New Roman", Font.ITALIC, 14));
         input2.setForeground(Color.gray);
         input2.setBounds(50, 150, 250, 45);
         input2.setMargin(new Insets(13, 13, 13, 13));
-        input2.setBackground(Color.white);
+        input2.setBackground(new Color(203,220,235));
         ButttonsPanel.add(input2);
 
         input2.addFocusListener(new FocusAdapter() {
@@ -112,7 +134,7 @@ public class MFrame extends JFrame implements Runnable{
             public void focusGained(FocusEvent e) {
                 if (input2.getText().equals("e.g 2 4 6 8 10") && input2.getForeground().equals(Color.gray)) {
                     input2.setText("");
-                    input2.setFont(new Font("Arial", Font.PLAIN, 14));
+                    input2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
                     input2.setForeground(Color.black);
                 }
             }
@@ -121,7 +143,7 @@ public class MFrame extends JFrame implements Runnable{
             public void focusLost(FocusEvent e) {
                 if (input2.getText().equals("")) {
                     input2.setText("e.g 2 4 6 8 10");
-                    input2.setFont(new Font("Arial", Font.ITALIC, 14));
+                    input2.setFont(new Font("Times New Roman", Font.ITALIC, 14));
                     input2.setForeground(Color.gray);
                 }
             }
@@ -129,11 +151,11 @@ public class MFrame extends JFrame implements Runnable{
 
         input3 = new JTextField();
         input3.setText("# Lowest - Highest");
-        input3.setFont(new Font("Arial", Font.ITALIC, 14));
+        input3.setFont(new Font("Times New Roman", Font.ITALIC, 14));
         input3.setForeground(Color.gray);
         input3.setBounds(50, 220, 250, 45);
         input3.setMargin(new Insets(13, 13, 13, 13));
-        input3.setBackground(Color.white);
+        input3.setBackground(new Color(203,220,235));
         ButttonsPanel.add(input3);
 
         input3.addFocusListener(new FocusAdapter() {
@@ -141,7 +163,7 @@ public class MFrame extends JFrame implements Runnable{
             public void focusGained(FocusEvent e) {
                 if (input3.getText().equals("# Lowest - Highest") && input3.getForeground().equals(Color.gray)) {
                     input3.setText("");
-                    input3.setFont(new Font("Arial", Font.PLAIN, 14));
+                    input3.setFont(new Font("Times New Roman", Font.PLAIN, 14));
                     input3.setForeground(Color.black);
                 }
             }
@@ -150,7 +172,7 @@ public class MFrame extends JFrame implements Runnable{
             public void focusLost(FocusEvent e) {
                 if (input3.getText().equals("")) {
                     input3.setText("# Lowest - Highest");
-                    input3.setFont(new Font("Arial", Font.ITALIC, 14));
+                    input3.setFont(new Font("Times New ROman", Font.ITALIC, 14));
                     input3.setForeground(Color.gray);
                 }
             }
@@ -161,7 +183,7 @@ public class MFrame extends JFrame implements Runnable{
         //#region Radio Buttons
         sjf = new JRadioButton("SJF");
         sjf.setSelected(false);
-        sjf.setFont(new Font("Arial", Font.PLAIN, 12));
+        sjf.setFont(new Font("Times New Roman", Font.BOLD, 12));
         sjf.setBackground(panelColor);
         sjf.setFocusable(false);
         sjf.setBounds(50, 265, 70, 35);
@@ -169,7 +191,7 @@ public class MFrame extends JFrame implements Runnable{
 
         ps = new JRadioButton("NPP");
         ps.setSelected(false);
-        ps.setFont(new Font("Arial", Font.PLAIN, 12));
+        ps.setFont(new Font("Times New Roman", Font.BOLD, 12));
         ps.setBackground(panelColor);
         ps.setFocusable(false);
         ps.setBounds(120, 265, 70, 35);
@@ -177,7 +199,7 @@ public class MFrame extends JFrame implements Runnable{
 
         pps = new JRadioButton("PP");
         pps.setSelected(false);
-        pps.setFont(new Font("Arial", Font.PLAIN, 12));
+        pps.setFont(new Font("Times New Roman", Font.BOLD, 12));
         pps.setBackground(panelColor);
         pps.setFocusable(false);
         pps.setBounds(190, 265, 70, 35);
@@ -188,17 +210,51 @@ public class MFrame extends JFrame implements Runnable{
         group.add(ps);
         group.add(pps);
 
-        startButton = new JButton("Start");
-        startButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        startButton.setBounds(50, 350, 100, 40);
+
+        ImageIcon startEntered = new ImageIcon(".idea/images/Group 21.png");
+        ImageIcon start = new ImageIcon(".idea/images/Group 20.png");
+        startButton = new JButton();
+        startButton.setIcon(start);
+        startButton.setBorder(null);
+        startButton.setBounds(60, 340, 100, 40);
         startButton.setFocusable(false);
         ButttonsPanel.add(startButton);
 
-        exitButton = new JButton("Exit");
-        exitButton.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        startButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                startButton.setIcon(startEntered);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                startButton.setIcon(start);
+            }
+        });
+
+
+        ImageIcon exit = new ImageIcon(".idea/images/Group 22.png");
+        ImageIcon exitEntered = new ImageIcon(".idea/images/Group 23.png");
+        exitButton = new JButton();
+        exitButton.setIcon(exit);
+        exitButton.setBorder(null);
         exitButton.setFocusable(false);
-        exitButton.setBounds(170, 350, 100, 40);
+        exitButton.setBounds(185, 340, 100, 40);
         ButttonsPanel.add(exitButton);
+
+        exitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exitButton.setIcon(exitEntered);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exitButton.setIcon(exit);
+            }
+        });
+
 
         //#endregion
 

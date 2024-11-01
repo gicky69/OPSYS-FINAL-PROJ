@@ -9,7 +9,7 @@ import org.jdesktop.swingx.border.DropShadowBorder;
 public class ResultPanel extends JPanel {
 
     DropShadowBorder shadow = new DropShadowBorder();
-    Color panelColor = new Color(255, 250, 237);
+    Color panelColor = new Color(19, 46, 53);
 
     static java.util.List<Processes> SPI = new ArrayList<>();
     static java.util.List<GanttChart> GDC = new ArrayList<>();
@@ -54,12 +54,14 @@ public class ResultPanel extends JPanel {
         
         //#region Title
         titleLabel = new JLabel("Output");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
         titleLabel.setBounds(50, 10, 200, 50);
         add(titleLabel);
 
         sbh = new JLabel("Gantt Chart and Table will be displayed here");
-        sbh.setFont(new Font("Arial", Font.ITALIC, 16));
+        sbh.setForeground(Color.WHITE);
+        sbh.setFont(new Font("Times New Roman", Font.ITALIC, 16));
         sbh.setBounds(50, 55, 500, 50);
         add(sbh);
         
@@ -84,13 +86,15 @@ public class ResultPanel extends JPanel {
     public void displayStats(String algo) {
         sbh.setVisible(false);
         algoTitle.setText(algo.toUpperCase());
-        algoTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        algoTitle.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        algoTitle.setForeground(Color.WHITE);
         algoTitle.setBounds(600, 10, 200, 50);
         add(algoTitle);
 
         //#region Gantt Chart
         gctLabel.setText("Gantt Chart");
-        gctLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        gctLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        gctLabel.setForeground(Color.WHITE);
         gctLabel.setBounds(305, 70, 200, 50);
         add(gctLabel);
 
@@ -113,7 +117,8 @@ public class ResultPanel extends JPanel {
         for (int i = 0; i < GDC.size(); i++) {
             GanttChart g = GDC.get(i);
             JLabel jobLabel = new JLabel("P" + g.getJob());
-            jobLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+            jobLabel.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+            jobLabel.setForeground(Color.WHITE);
 
             // Adjust the position and size of each label
             int x = startX + i * (labelWidth + margin);
