@@ -1,85 +1,83 @@
+import java.util.*;
+
 public class SJF {
-    public SJF(int p[][]) {
-        // SJF Non Preemptive
+    public static void sortbyColumn(int a[][], int c){
+        Arrays.sort(a, (x, y) -> Integer.compare(x[c],y[c]));
+    }
+    
+    Processes processes = new Processes(0, 0, 0, 0, 0);
+    GanttChart ganttChart = new GanttChart(0, 0, 0);
+    
+    public SJF(int[][] p) {
         int n = p.length;
-        float avgwt, avgtat;
-        int total = 0; // tmep
+        int[] at = new int[n];
+        int[] bt = new int[n];
 
-        // Sort P by BT
-        for (int i = 0;i < n;i++) {
-            int ix = i;
-
-            for (int j = i + 1;j < n;j++) {
-                if (p[j][2] < p[ix][2]) {
-                    ix = j;
-                }
-            }
-
-            // Sort BT
-            int temp = p[i][2];
-            p[i][2] = p[ix][2];
-            p[ix][2] = temp;
-
-            // Sort PROCESS NUMBER
-            temp = p[i][0];
-            p[i][0] = p[ix][0];
-            p[ix][0] = temp;
-
-            // Sort AT
-            temp = p[i][1];
-            p[i][1] = p[ix][1];
-            p[ix][1] = temp;
-
-            // Sort PRIORITY
-            temp = p[i][3];
-            p[i][3] = p[ix][3];
-            p[ix][3] = temp;
-
+        for (int i = 0; i < n; i++) {
+            at[i] = p[i][0];
+            bt[i] = p[i][1];
         }
 
-        // Set WT 0 sa nauuna sa table
-        // compute na yung WT
-        // then get average
-        p[0][4] = 0;
-        // Calculate WT
-        for (int i=0;i<n;i++) {
-            p[i][4] = 0;
-            for (int j = 0;j < i;j++) {
-                p[i][4] += p[j][2];
-            }
-            total += p[i][4];
+        Map<String, Object> result = sjf(at, bt);
+
+        System.out.println("Job\tAT\tBT\tFT\tTAT\tWT");
+        List<Processes> solvedPI = (List<Processes>) result.get("solvedPI");
+        List<GanttChart> ganttChartI = (List<GanttChart>) result.get("ganttChartI");
+
+        for (Processes p1 : solvedPI) {
+            System.out.println(p1.job + "\t" + p1.at + "\t" + p1.bt + "\t" + p1.ft + "\t" + p1.tat + "\t" + p1.wat);
         }
-        avgwt = (float)total / n;
-        total = 0;
-
-        // Calculate TAT
-        for (int i = 0;i < n;i++) {
-            p[i][5] = p[i][2] + p[i][4];
-            total += p[i][5];
-        }
-        avgtat = (float)total / n;
-
-
-        // clear screen
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
-        // Print Unsorted Table
-        System.out.println("SJF Non Preemptive");
-        System.out.println("P\tAT\tBT\tPT\tWT\tTAT");
-        for (int i = 0;i < n;i++) {
-            System.out.println("P" + p[i][0] + "\t" + p[i][1] + "\t" + p[i][2] + "\t" + p[i][3] + "\t" + p[i][4]+ "\t" + p[i][5]);
-        }
-
-        System.out.println("Average Waiting Time: " + avgwt);
-        System.out.println("Average Turnaround Time: " + avgtat);
 
         System.out.println("Gantt Chart");
-        for (int i = 0; i < n; i++) {
-            System.out.print("P" + p[i][0] + " ");
+        for (GanttChart g : ganttChartI) {
+            System.out.println(g.job + "\t" + g.start + "\t" + g.end);
         }
-        System.out.println();
-
     }
 
+    public static Map<String, Object> sjf(int[] at, int[] bt) {
+        List<Processes> processesList = new ArrayList<>();
+
+        for (int i = 0; i < at.length; i++) {
+            processesList.add(new Processes(i, at[i], bt[i], 0, bt[i]));
+        }
+
+        processesList.sort(Comparator.comparingInt(p -> p.at));
+
+        List<Processes> solvedPI = new ArrayList<>();
+        List<GanttChart> ganttChart = new ArrayList<>();
+        
+        PriorityQueue<Processes> readyQueue = new PriorityQueue<>(
+                Comparator.comparingInt((Processes p) -> p.bt).thenComparingInt(p -> p.at)
+        );
+
+        int currentTime = 0;
+        int index = 0;
+
+        while (!readyQueue.isEmpty() || index < processesList.size()) {
+            while (index < processesList.size() && processesList.get(index).at <= currentTime) {
+                readyQueue.add(processesList.get(index));
+                index++;
+            }
+
+            if (readyQueue.isEmpty()) {
+                currentTime = processesList.get(index).at;
+                continue;
+            }
+
+            Processes currentProcess = readyQueue.poll();
+
+            ganttChart.add(new GanttChart(currentProcess.job, currentTime, currentTime + currentProcess.bt));
+            currentProcess.ft = currentTime + currentProcess.bt;
+            currentProcess.tat = currentProcess.ft - currentProcess.at;
+            currentProcess.wat = currentProcess.tat - currentProcess.bt;
+
+            solvedPI.add(currentProcess);
+            currentTime += currentProcess.bt;
+        }
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("solvedPI", solvedPI);
+        result.put("ganttChartI", ganttChart);
+        return result;
+    }
 }
