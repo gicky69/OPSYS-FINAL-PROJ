@@ -49,31 +49,34 @@ public class MFrame extends JFrame implements Runnable{
         add(panel);
 
         //#region Title
-        titleLabel = new JLabel(" CPU SCHEDULING");
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 38));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setBounds(480, 40, 400, 50);
+        titleLabel = new JLabel();
+        ImageIcon titleImage = new ImageIcon(".idea/images/TITLEBAR.png");
+        titleLabel.setIcon(titleImage);
+        titleLabel.setBounds(460, 40, 400, 50);
         panel.add(titleLabel);
 
         title1Label = new JLabel("Input");
-        title1Label.setFont(new Font("Times New Roman", Font.BOLD, 25));
-        title1Label.setForeground(Color.WHITE);
-        title1Label.setBounds(140, 140, 200, 50);
+        ImageIcon inputIcon = new ImageIcon(".idea/images/INPUT4.png");
+        title1Label.setIcon(inputIcon);
+        title1Label.setBounds(120, 140, 100, 40);
         panel.add(title1Label);
 
-        title2Label = new JLabel("Arrival Time:");
-        title2Label.setFont(new Font("Times New Roman", Font.BOLD, 12));
-        title2Label.setBounds(150,175,300,50);
+        title2Label = new JLabel();
+        ImageIcon atImage = new ImageIcon(".idea/images/Arrival time.png");
+        title2Label.setIcon(atImage);
+        title2Label.setBounds(147,190,100,20);
         panel.add(title2Label);
 
-        title3Label = new JLabel("Burst Time:");
-        title3Label.setFont(new Font("Times New Roman", Font.BOLD, 12));
-        title3Label.setBounds(150,245,300,50);
+        title3Label = new JLabel();
+        ImageIcon btImage = new ImageIcon(".idea/images/Burst time.png");
+        title3Label.setIcon(btImage);
+        title3Label.setBounds(147,245,300,50);
         panel.add(title3Label);
 
-        title4Label = new JLabel("Priority:");
-        title4Label.setFont(new Font("Times New Roman", Font.BOLD,12));
-        title4Label.setBounds(150,315,300,50);
+        title4Label = new JLabel();
+        ImageIcon pImage = new ImageIcon(".idea/images/priority.png");
+        title4Label.setIcon(pImage);
+        title4Label.setBounds(147,315,300,50);
         panel.add(title4Label);
 
         ButttonsPanel = new JPanel();
@@ -95,7 +98,7 @@ public class MFrame extends JFrame implements Runnable{
         input1 = new JTextField();
         // input1.setFont(f);
         input1.setBounds(50, 80, 250, 45);
-        input1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        input1.setFont(new Font("Oswald", Font.PLAIN, 14));
         input1.setBackground(new Color(203,220,235));
         input1.setMargin(new Insets(13, 13, 13, 13));
         ButttonsPanel.add(input1);
@@ -105,7 +108,7 @@ public class MFrame extends JFrame implements Runnable{
             public void focusGained(FocusEvent e) {
                 if (input1.getText().equals("e.g 0 2 4 6 8") && input1.getForeground().equals(Color.gray)) {
                     input1.setText("");
-                    input1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+                    input1.setFont(new Font("Oswald", Font.PLAIN, 14));
                     input1.setForeground(Color.black);
                 }
             }
@@ -183,7 +186,8 @@ public class MFrame extends JFrame implements Runnable{
         //#region Radio Buttons
         sjf = new JRadioButton("SJF");
         sjf.setSelected(false);
-        sjf.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        sjf.setFont(new Font("Consolas", Font.BOLD, 12));
+        sjf.setForeground(Color.WHITE);
         sjf.setBackground(panelColor);
         sjf.setFocusable(false);
         sjf.setBounds(50, 265, 70, 35);
@@ -191,16 +195,18 @@ public class MFrame extends JFrame implements Runnable{
 
         ps = new JRadioButton("NPP");
         ps.setSelected(false);
-        ps.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        ps.setFont(new Font("Consolas", Font.BOLD, 12));
         ps.setBackground(panelColor);
+        ps.setForeground(Color.WHITE);
         ps.setFocusable(false);
         ps.setBounds(120, 265, 70, 35);
         ButttonsPanel.add(ps);
 
         pps = new JRadioButton("PP");
         pps.setSelected(false);
-        pps.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        pps.setFont(new Font("Consolas", Font.BOLD, 12));
         pps.setBackground(panelColor);
+        pps.setForeground(Color.WHITE);
         pps.setFocusable(false);
         pps.setBounds(190, 265, 70, 35);
         ButttonsPanel.add(pps);
@@ -211,8 +217,8 @@ public class MFrame extends JFrame implements Runnable{
         group.add(pps);
 
 
-        ImageIcon startEntered = new ImageIcon(".idea/images/Group 21.png");
-        ImageIcon start = new ImageIcon(".idea/images/Group 20.png");
+        ImageIcon startEntered = new ImageIcon(".idea/images/startclicked.png");
+        ImageIcon start = new ImageIcon(".idea/images/startnotclick.png");
         startButton = new JButton();
         startButton.setIcon(start);
         startButton.setBorder(null);
@@ -234,8 +240,8 @@ public class MFrame extends JFrame implements Runnable{
         });
 
 
-        ImageIcon exit = new ImageIcon(".idea/images/Group 22.png");
-        ImageIcon exitEntered = new ImageIcon(".idea/images/Group 23.png");
+        ImageIcon exit = new ImageIcon(".idea/images/exitnotclicked.png");
+        ImageIcon exitEntered = new ImageIcon(".idea/images/exitclicked.png");
         exitButton = new JButton();
         exitButton.setIcon(exit);
         exitButton.setBorder(null);

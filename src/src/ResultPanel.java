@@ -54,15 +54,15 @@ public class ResultPanel extends JPanel {
         
         //#region Title
         titleLabel = new JLabel("Output");
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
-        titleLabel.setBounds(50, 10, 200, 50);
+        ImageIcon outputLabel = new ImageIcon(".idea/images/OUTPUT2.png");
+        titleLabel.setIcon(outputLabel);
+        titleLabel.setBounds(40, 10, 100, 40);
         add(titleLabel);
 
         sbh = new JLabel("Gantt Chart and Table will be displayed here");
         sbh.setForeground(Color.WHITE);
-        sbh.setFont(new Font("Times New Roman", Font.ITALIC, 16));
-        sbh.setBounds(50, 55, 500, 50);
+        sbh.setFont(new Font("Oswald", Font.ITALIC, 16));
+        sbh.setBounds(50, 45, 500, 50);
         add(sbh);
         
         
