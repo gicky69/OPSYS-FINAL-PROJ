@@ -381,11 +381,14 @@ public class MFrame extends JFrame implements Runnable{
         resultPanel.setVisible(true);
         //#endregion
 
+        exitButton.addActionListener(e ->System.exit(0));
+
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
 
         start();
+
     }
 
     public void start() {
