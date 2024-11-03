@@ -54,15 +54,16 @@ public class PPS {
             processes[i] = new Processes(i, at[i], bt[i], prio[i], bt[i]);
         }
 
-        Arrays.sort(processes, Comparator.comparingInt(p1 -> p1.at));
+        Arrays.sort(processes, Comparator.comparingInt((Processes p1) -> p1.at).thenComparingInt(p1 -> p1.priority));
 
         List<GanttChart> ganttChart = new ArrayList<>();
         List<Processes> solvedP = new ArrayList<>();
         PriorityQueue<Processes> rqueue = new PriorityQueue<>(
-            Comparator.comparingInt((Processes p) -> p.priority).
-            thenComparingInt(p -> p.at));
+            Comparator.comparingInt((Processes p) -> p.priority));
         int currentTime = 0;
         int i = 0;
+        Integer lastJob = null;
+
 
         while (i < processes.length || !rqueue.isEmpty()) {
             while (i < processes.length && processes[i].at <= currentTime) {
@@ -80,7 +81,12 @@ public class PPS {
             int timeSlice = 1;
             if (currentProcess.remainingBt <= timeSlice) {
                 currentTime += currentProcess.remainingBt;
-                ganttChart.add(new GanttChart(i, currentTime - currentProcess.remainingBt, currentTime));
+                if (lastJob == null || !lastJob.equals(currentProcess.job)) {
+                    ganttChart.add(new GanttChart(currentProcess.job, currentTime - currentProcess.remainingBt, currentTime));
+                } else {
+                    GanttChart lastEntry = ganttChart.get(ganttChart.size() - 1);
+                    lastEntry.end = currentTime;
+                }
                 currentProcess.ft = currentTime;
                 currentProcess.tat = currentProcess.ft - currentProcess.at;
                 currentProcess.wat = currentProcess.tat - currentProcess.bt;
@@ -88,10 +94,16 @@ public class PPS {
                 solvedP.add(currentProcess);
             } else {
                 currentTime += timeSlice;
-                ganttChart.add(new GanttChart(i, currentTime - timeSlice, currentTime));
+                if (lastJob == null || !lastJob.equals(currentProcess.job)) {
+                    ganttChart.add(new GanttChart(currentProcess.job, currentTime - timeSlice, currentTime));
+                } else {
+                    GanttChart lastEntry = ganttChart.get(ganttChart.size() - 1);
+                    lastEntry.end = currentTime;
+                }
                 currentProcess.remainingBt -= timeSlice;
                 rqueue.add(currentProcess);
             }
+            lastJob = currentProcess.job;
         }
 
         Map<String, Object> result = new HashMap<>();

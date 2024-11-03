@@ -50,7 +50,7 @@ public class MFrame extends JFrame implements Runnable{
 
         //#region Title
         titleLabel = new JLabel();
-        ImageIcon titleImage = new ImageIcon("OPSYS-FINAL-PROJ/images/TITLEBAR.png");
+        ImageIcon titleImage = new ImageIcon("TITLEBAR.png");
         titleLabel.setIcon(titleImage);
         titleLabel.setBounds(460, 40, 400, 50);
         panel.add(titleLabel);

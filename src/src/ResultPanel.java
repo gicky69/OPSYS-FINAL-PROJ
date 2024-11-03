@@ -5,14 +5,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-
+import java.util.List;
 
 
 public class ResultPanel extends JPanel {
     Color panelColor = new Color(19, 46, 53);
 
-    static java.util.List<Processes> SPI = new ArrayList<>();
-    static java.util.List<GanttChart> GDC = new ArrayList<>();
+    List<Processes> SPI = new ArrayList<>();
+    static List<GanttChart> GDC = new ArrayList<>();
 
     //#region Initialization Components
     JLabel titleLabel;
@@ -23,7 +23,7 @@ public class ResultPanel extends JPanel {
     JScrollPane scrollPaneTable;
 
     JLabel algoTitle;
-    java.util.List<JLabel> proc = new ArrayList<>();
+    List<JLabel> proc = new ArrayList<>();
     JLabel gctLabel;
     JLabel[] gcpLabel;
     JLabel jobLabel;
@@ -37,6 +37,8 @@ public class ResultPanel extends JPanel {
 
     Object[][] data;
     String[] columnNames;
+
+    Stack<Integer> sjob = new Stack<>();
 
     
 
@@ -62,8 +64,6 @@ public class ResultPanel extends JPanel {
         sbh.setFont(new Font("Montserrat", Font.ITALIC, 14));
         sbh.setBounds(47, 38, 500, 50);
         add(sbh);
-        
-        
         
         //#endregion
         
@@ -116,6 +116,7 @@ public class ResultPanel extends JPanel {
     public void ResultAlgo(String algo, int[] at, int[] bt, int[] prio) {
         SPI.clear();
         GDC.clear();
+        sjob.clear();
 
         int n = at.length;
 
@@ -148,24 +149,19 @@ public class ResultPanel extends JPanel {
             GDC.addAll(pps.getGDC());
         }
 
-        // Simplify GDC
-        GanttChart prev = GDC.get(0);
+
+        sjob.add(GDC.get(0).getJob());
+
         for (int i = 1; i < GDC.size(); i++) {
-            GanttChart curr = GDC.get(i);
-            if (prev.job == curr.job) {
-                prev.end = curr.end;
-                GDC.remove(i);
-                i--;
-            } else {
-                prev = curr;
+            Integer currentJob = GDC.get(i).getJob();
+            Integer previousJob = GDC.get(i - 1).getJob();
+            if (currentJob != null && !currentJob.equals(previousJob)) {
+                sjob.add(currentJob);
             }
         }
 
-        System.out.println("GDC Simpliy");
-        for (GanttChart g : GDC) {
-            System.out.println(g.job + "\t" + g.start + "\t" + g.end);
-        }
-            
+
+
         displayStats(algo);
         //#endregion
     }
@@ -252,16 +248,20 @@ public class ResultPanel extends JPanel {
 
         int rectWidth = 42;
         int rectHeight = 42;
-        int totalWidth = GDC.size() * rectWidth;
+        int totalWidth = sjob.size() * rectWidth;
 
         int rectX = labelBounds.x + ((labelBounds.width - totalWidth) - 100) / 2;
         int rectY = labelBounds.y + (labelBounds.height + 35) / 2;
 
-        for (int i = 0; i < GDC.size(); i++) {
-            g.setFont(new Font("Montserrat", Font.BOLD, 14));
-            g.drawString("P" + GDC.get(i).job, (rectX + 13) + i * rectWidth, rectY + 25);
+        for (int i = 0; i < sjob.size(); i++) {
             g.setFont(new Font("Montserrat", Font.ITALIC, 12));
             g.drawRect(rectX + i * rectWidth, rectY, rectWidth, rectHeight);
+        }
+
+        // Print Job Number
+        for (int i =0;i<sjob.size();i++) {
+            g.setFont(new Font("Montserrat", Font.BOLD, 14));
+            g.drawString("P" + sjob.get(i), rectX + i * rectWidth + 10, rectY + 20);
         }
     }
 
