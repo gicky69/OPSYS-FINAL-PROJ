@@ -1,11 +1,9 @@
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.util.List;
 
 
 public class ResultPanel extends JPanel {
@@ -25,23 +23,15 @@ public class ResultPanel extends JPanel {
     JLabel algoTitle;
     List<JLabel> proc = new ArrayList<>();
     JLabel gctLabel;
-    JLabel[] gcpLabel;
-    JLabel jobLabel;
-    JLabel atLabel;
-    JLabel btLabel;
-    JLabel ftLabel;
-    JLabel tatLabel;
-    JLabel watLabel;
+
     JLabel avgtatLabel;
     JLabel avgwatLabel;
+    JLabel avgLabel;
 
     Object[][] data;
     String[] columnNames;
 
     Stack<Integer> sjob = new Stack<>();
-
-    
-
     //#endregion
 
     public ResultPanel() {
@@ -70,13 +60,8 @@ public class ResultPanel extends JPanel {
         //#region Hidden Title
         algoTitle = new JLabel();
         gctLabel = new JLabel();
-        jobLabel = new JLabel();
-        atLabel = new JLabel();
-        btLabel = new JLabel();
-        ftLabel = new JLabel();
-        tatLabel = new JLabel();
-        watLabel = new JLabel();
         avgtatLabel = new JLabel();
+        avgLabel = new JLabel();
         avgwatLabel = new JLabel();
         //#endregion
     
@@ -100,6 +85,38 @@ public class ResultPanel extends JPanel {
         algoTitle.setBounds(600, 10, 200, 50);
         add(algoTitle);
 
+        //#region Averages
+        int totalTAT = 0;
+        int totalWAT = 0;
+        for (Processes p : SPI) {
+            totalTAT += p.getTat();
+            totalWAT += p.getWat();
+        }
+
+        double avgTAT = (double) totalTAT / SPI.size();
+        double avgWAT = (double) totalWAT / SPI.size();
+
+
+
+        avgLabel.setText("Average: ");
+        avgLabel.setFont(new Font("Calibri", Font.ITALIC, 14));
+        avgLabel.setForeground(Color.WHITE);
+        avgLabel.setBounds(395, 300, 200, 50);
+
+        avgtatLabel.setText(String.format("%.2f", avgTAT));
+        avgtatLabel.setFont(new Font("Calibri", Font.ITALIC, 14));
+        avgtatLabel.setForeground(Color.WHITE);
+        avgtatLabel.setBounds(520, 300, 200, 50);
+
+        avgwatLabel.setText(String.format("%.2f", avgWAT));
+        avgwatLabel.setFont(new Font("Calibri", Font.ITALIC, 14));
+        avgwatLabel.setForeground(Color.WHITE);
+        avgwatLabel.setBounds(618, 300, 200, 50);
+
+        add(avgLabel);
+        add(avgtatLabel);
+        add(avgwatLabel);
+
         //#region Gantt Chart
         gctLabel.setText("Gantt Chart");
         gctLabel.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -118,8 +135,6 @@ public class ResultPanel extends JPanel {
         GDC.clear();
         sjob.clear();
 
-        int n = at.length;
-
         System.out.println("Algorithm: " + algo);
         for (int i = 0; i < at.length; i++) {
             System.out.println("P" + i + " " + at[i] + " " + bt[i] + " " + prio[i]);
@@ -135,18 +150,22 @@ public class ResultPanel extends JPanel {
 
         //#region Algorithm
         
-        if (algo.equals("sjf")) {
-            SJF sjf = new SJF(p);
-            SPI.addAll(sjf.getSPI());
-            GDC.addAll(sjf.getGDC());
-        } else if (algo.equals("nps")) {
-            PS ps = new PS(p);
-            SPI.addAll(ps.getSPI());
-            GDC.addAll(ps.getGDC());
-        } else if (algo.equals("pps")) {
-            PPS pps = new PPS(p);
-            SPI.addAll(pps.getSPI());
-            GDC.addAll(pps.getGDC());
+        switch (algo) {
+            case "sjf":
+                SJF sjf = new SJF(p);
+                SPI.addAll(SJF.getSPI());
+                GDC.addAll(SJF.getGDC());
+                break;
+            case "nps":
+                PS ps = new PS(p);
+                SPI.addAll(PS.getSPI());
+                GDC.addAll(PS.getGDC());
+                break;
+            case "pps":
+                PPS pps = new PPS(p);
+                SPI.addAll(PPS.getSPI());
+                GDC.addAll(PPS.getGDC());
+                break;
         }
 
 
@@ -155,7 +174,7 @@ public class ResultPanel extends JPanel {
         for (int i = 1; i < GDC.size(); i++) {
             Integer currentJob = GDC.get(i).getJob();
             Integer previousJob = GDC.get(i - 1).getJob();
-            if (currentJob != null && !currentJob.equals(previousJob)) {
+            if (!currentJob.equals(previousJob)) {
                 sjob.add(currentJob);
             }
         }
@@ -172,12 +191,7 @@ public class ResultPanel extends JPanel {
             model.setColumnCount(0);
         }
 
-        Collections.sort(SPI, new Comparator<Processes>() {
-            @Override
-            public int compare(Processes o1, Processes o2) {
-                return o1.getAt() - o2.getAt();
-            }
-        });
+        Collections.sort(SPI, (o1, o2) -> o1.getAt() - o2.getAt());
         
         //#region Table
         columnNames = new String[] {"Job", "Arrival Time", "Burst Time", "Finish Time", "Turnaround Time", "Waiting Time"};
