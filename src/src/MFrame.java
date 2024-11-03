@@ -42,6 +42,8 @@ public class MFrame extends JFrame implements Runnable{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.white);
 
+        Color hoverColor = new Color(19, 46, 53);
+
         panel = new JPanel();
         panel.setBounds(0, 0, 1280, 720);
         panel.setLayout(null);
@@ -50,39 +52,40 @@ public class MFrame extends JFrame implements Runnable{
 
         //#region Title
         titleLabel = new JLabel();
-        ImageIcon titleImage = new ImageIcon("TITLEBAR.png");
+        ImageIcon titleImage = new ImageIcon("OPSYS-FINAL-PROJ/images/TITLEBAR.png");
         titleLabel.setIcon(titleImage);
-        titleLabel.setBounds(460, 40, 400, 50);
+        titleLabel.setBounds(460, 20, 400, 50);
         panel.add(titleLabel);
+
+
+        ButttonsPanel = new JPanel();
+        ButttonsPanel.setBounds(100, 80, 350, 510);
+        ButttonsPanel.setBackground(panelColor);
+        ButttonsPanel.setLayout(null);
 
         title1Label = new JLabel("Input");
         ImageIcon inputIcon = new ImageIcon("OPSYS-FINAL-PROJ/images/INPUT4.png");
         title1Label.setIcon(inputIcon);
-        title1Label.setBounds(120, 140, 100, 40);
-        panel.add(title1Label);
+        title1Label.setBounds(34, 20, 100, 40);
+        ButttonsPanel.add(title1Label);
 
         title2Label = new JLabel();
         ImageIcon atImage = new ImageIcon("OPSYS-FINAL-PROJ/images/Arrival time.png");
         title2Label.setIcon(atImage);
-        title2Label.setBounds(147,190,100,20);
-        panel.add(title2Label);
+        title2Label.setBounds(47,75,100,20);
+        ButttonsPanel.add(title2Label);
 
         title3Label = new JLabel();
         ImageIcon btImage = new ImageIcon("OPSYS-FINAL-PROJ/images/Burst time.png");
         title3Label.setIcon(btImage);
-        title3Label.setBounds(147,245,300,50);
-        panel.add(title3Label);
+        title3Label.setBounds(47,135,300,50);
+        ButttonsPanel.add(title3Label);
 
         title4Label = new JLabel();
         ImageIcon pImage = new ImageIcon("OPSYS-FINAL-PROJ/images/priority.png");
         title4Label.setIcon(pImage);
-        title4Label.setBounds(147,315,300,50);
-        panel.add(title4Label);
-
-        ButttonsPanel = new JPanel();
-        ButttonsPanel.setBounds(100, 130, 350, 450);
-        ButttonsPanel.setBackground(panelColor);
-        ButttonsPanel.setLayout(null);
+        title4Label.setBounds(47,210,300,50);
+        ButttonsPanel.add(title4Label);
 
         // shadow.setShadowColor(Color.BLACK);
         // shadow.setShadowSize(10);
@@ -99,7 +102,7 @@ public class MFrame extends JFrame implements Runnable{
         //#region Input Fields
         input1 = new JTextField();
         // input1.setFont(f);
-        input1.setBounds(50, 80, 250, 45);
+        input1.setBounds(50, 100, 250, 45);
         input1.setFont(new Font("Montserrat", Font.PLAIN, 16));
         input1.setForeground(Color.BLACK);
         input1.setBackground(new Color(203,220,235));
@@ -130,7 +133,7 @@ public class MFrame extends JFrame implements Runnable{
         input2.setText("e.g 2 4 6 8 10");
         input2.setFont(new Font("Montserrat", Font.ITALIC, 12));
         input2.setForeground(Color.GRAY);
-        input2.setBounds(50, 150, 250, 45);
+        input2.setBounds(50, input1.getHeight() + input1.getY() + 30, 250, 45);
         input2.setMargin(new Insets(13, 13, 13, 13));
         input2.setBackground(new Color(203,220,235));
         ButttonsPanel.add(input2);
@@ -159,7 +162,7 @@ public class MFrame extends JFrame implements Runnable{
         input3.setText("# Lowest - Highest");
         input3.setFont(new Font("Montserrat", Font.ITALIC, 12));
         input3.setForeground(Color.GRAY);
-        input3.setBounds(50, 220, 250, 45);
+        input3.setBounds(50, input2.getHeight() + input2.getY() + 30, 250, 45);
         input3.setMargin(new Insets(13, 13, 13, 13));
         input3.setBackground(new Color(203,220,235));
         ButttonsPanel.add(input3);
@@ -187,32 +190,65 @@ public class MFrame extends JFrame implements Runnable{
         //#endregion
 
         //#region Radio Buttons
-        sjf = new JRadioButton("SJF");
+        sjf = new JRadioButton("Shortest Job First");
         sjf.setSelected(false);
-        sjf.setFont(new Font("Calibri", Font.ITALIC, 12));
+        sjf.setFont(new Font("Calibri", Font.BOLD, 20));
         sjf.setForeground(Color.WHITE);
         sjf.setBackground(panelColor);
         sjf.setFocusable(false);
-        sjf.setBounds(50, 265, 70, 35);
+        sjf.setBounds(input1.getX(), 310, input1.getWidth(), 40);
         ButttonsPanel.add(sjf);
 
-        ps = new JRadioButton("NPP");
+        ps = new JRadioButton("Priority (Non-Preemptive)");
         ps.setSelected(false);
-        ps.setFont(new Font("Calibri", Font.BOLD, 12));
+        ps.setFont(new Font("Calibri", Font.BOLD, 20));
         ps.setBackground(panelColor);
         ps.setForeground(Color.WHITE);
         ps.setFocusable(false);
-        ps.setBounds(120, 265, 70, 35);
+        ps.setBounds(input1.getX(), sjf.getHeight() + sjf.getY(), input1.getWidth(), 40);
         ButttonsPanel.add(ps);
 
-        pps = new JRadioButton("PP");
+        pps = new JRadioButton("Priority (Preemptive)");
         pps.setSelected(false);
-        pps.setFont(new Font("Calibri", Font.BOLD, 12));
+        pps.setFont(new Font("Calibri", Font.BOLD, 20));
         pps.setBackground(panelColor);
         pps.setForeground(Color.WHITE);
         pps.setFocusable(false);
-        pps.setBounds(190, 265, 70, 35);
+        pps.setBounds(input1.getX(), ps.getHeight() + ps.getY(), input1.getWidth(), 40);
         ButttonsPanel.add(pps);
+
+        ActionListener radioButtonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (sjf.isSelected()) {
+                    input3.setEnabled(false);
+                } else {
+                    input3.setEnabled(true);
+                }
+            }
+        };
+        
+        sjf.addActionListener(radioButtonListener);
+        ps.addActionListener(radioButtonListener);
+        pps.addActionListener(radioButtonListener);
+
+        MouseListener hoverEffect = new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                JRadioButton button = (JRadioButton) e.getSource();
+                button.setBackground(hoverColor); // Change to desired hover color
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                JRadioButton button = (JRadioButton) e.getSource();
+                button.setBackground(panelColor); // Revert to original color
+            }
+        };
+
+        sjf.addMouseListener(hoverEffect);
+        ps.addMouseListener(hoverEffect);
+        pps.addMouseListener(hoverEffect);
 
         group = new ButtonGroup();
         group.add(sjf);
@@ -225,10 +261,9 @@ public class MFrame extends JFrame implements Runnable{
         startButton = new JButton();
         startButton.setIcon(start);
         startButton.setBorder(null);
-        startButton.setBounds(60, 340, 100, 40);
+        startButton.setBounds(60, 445, 100, 40);
         startButton.setFocusable(false);
         ButttonsPanel.add(startButton);
-
 
         startButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -242,14 +277,13 @@ public class MFrame extends JFrame implements Runnable{
             }
         });
 
-
         ImageIcon exit = new ImageIcon("OPSYS-FINAL-PROJ/images/exitnotclicked.png");
         ImageIcon exitEntered = new ImageIcon("OPSYS-FINAL-PROJ/images/exitclicked.png");
         exitButton = new JButton();
         exitButton.setIcon(exit);
         exitButton.setBorder(null);
         exitButton.setFocusable(false);
-        exitButton.setBounds(185, 340, 100, 40);
+        exitButton.setBounds(185, 445, 100, 40);
         ButttonsPanel.add(exitButton);
 
         exitButton.addMouseListener(new MouseAdapter() {
@@ -272,11 +306,11 @@ public class MFrame extends JFrame implements Runnable{
             if (
                 input1.getText().equals("e.g 0 2 4 6 8") 
                 || input2.getText().equals("e.g 2 4 6 8 10") 
-                || input3.getText().equals("# Lowest - Highest") 
                 || (!sjf.isSelected() && !ps.isSelected() && !pps.isSelected())
                 || input1.getText().trim().isEmpty()
                 || input2.getText().trim().isEmpty()
-                || input3.getText().trim().isEmpty()
+                || (ps.isSelected() && (input3.getText().trim().isEmpty() || input3.getText().equals("# Lowest - Highest")))
+                || (pps.isSelected() && (input3.getText().trim().isEmpty() || input3.getText().equals("# Lowest - Highest")))
                 ) {
                 JOptionPane.showMessageDialog(null, "Please fill all the fields", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -306,20 +340,27 @@ public class MFrame extends JFrame implements Runnable{
             //#endregion
 
             //#region Input 3
-            String p3 = input3.getText();
+            int[] prio = new int[at.length];
+            if (!sjf.isSelected()) {
+                String p3 = input3.getText();
 
-            String[] p3str = p3.split(" ");
+                String[] p3str = p3.split(" ");
 
-            int[] prio = new int[p3str.length];
-            for (int i = 0; i < p3str.length; i++) {
-                prio[i] = Integer.parseInt(p3str[i]);
+                for (int i = 0; i < p3str.length; i++) {
+                    prio[i] = Integer.parseInt(p3str[i]);
+                }
+            } else {    
+                for (int i = 0; i < at.length; i++) {
+                    prio[i] = 0;
+                }
             }
+            
             //#endregion
 
-            System.out.println("UNSORTED TABLE");
-            for (int i=0;i<at.length;i++) {
-                System.out.println("P" + i + " " + at[i] + " " + bt[i] + " " + prio[i]);
-            }
+            // System.out.println("UNSORTED TABLE");
+            // for (int i=0;i<at.length;i++) {
+            //     System.out.println("P" + i + " " + at[i] + " " + bt[i] + " " + prio[i]);
+            // }
 
             if (sjf.isSelected()) {
                 resultPanel.ResultAlgo("sjf", at, bt, prio);

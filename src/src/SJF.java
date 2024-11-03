@@ -57,6 +57,10 @@ public class SJF {
         }
 
         processesList.sort(Comparator.comparingInt(p -> p.at));
+        System.out.println("UNSOLVED TABLE");
+        for (Processes p : processesList) {
+            System.out.println(p.job + "\t" + p.at + "\t" + p.bt);
+        }
 
         List<Processes> solvedPI = new ArrayList<>();
         List<GanttChart> ganttChart = new ArrayList<>();
@@ -85,6 +89,7 @@ public class SJF {
             currentProcess.ft = currentTime + currentProcess.bt;
             currentProcess.tat = currentProcess.ft - currentProcess.at;
             currentProcess.wat = currentProcess.tat - currentProcess.bt;
+            System.out.println("Solved: " + currentProcess.job + "\t" + currentProcess.at + "\t" + currentProcess.bt + "\t" + currentProcess.ft + "\t" + currentProcess.tat + "\t" + currentProcess.wat);
 
             solvedPI.add(currentProcess);
             currentTime += currentProcess.bt;

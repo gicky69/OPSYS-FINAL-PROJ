@@ -31,12 +31,13 @@ public class ResultPanel extends JPanel {
     Object[][] data;
     String[] columnNames;
 
-    Stack<Integer> sjob = new Stack<>();
+    List<Integer> sjob = new ArrayList<>();
+    List<Integer> end = new ArrayList<>();
     //#endregion
 
     public ResultPanel() {
         //#region Frame Attributes
-        setBounds(450,130,700,450);
+        setBounds(450,80,700,510);
         setBackground(panelColor);
         setLayout(null);
         setVisible(true);
@@ -46,13 +47,13 @@ public class ResultPanel extends JPanel {
         titleLabel = new JLabel("Output");
         ImageIcon outputLabel = new ImageIcon("OPSYS-FINAL-PROJ/images/OUTPUT2.png");
         titleLabel.setIcon(outputLabel);
-        titleLabel.setBounds(40, 10, 100, 40);
+        titleLabel.setBounds(40, 20, 100, 40);
         add(titleLabel);
 
         sbh = new JLabel("Gantt Chart and Table will be displayed here");
         sbh.setForeground(Color.WHITE);
         sbh.setFont(new Font("Montserrat", Font.ITALIC, 14));
-        sbh.setBounds(47, 38, 500, 50);
+        sbh.setBounds(47, 50, 500, 50);
         add(sbh);
         
         //#endregion
@@ -80,48 +81,16 @@ public class ResultPanel extends JPanel {
         //#region
         sbh.setVisible(false);
         algoTitle.setText(algo.toUpperCase());
-        algoTitle.setFont(new Font("Calibri", Font.BOLD, 16));
+        algoTitle.setFont(new Font("Calibri", Font.BOLD, 24));
         algoTitle.setForeground(Color.WHITE);
         algoTitle.setBounds(600, 10, 200, 50);
         add(algoTitle);
 
-        //#region Averages
-        int totalTAT = 0;
-        int totalWAT = 0;
-        for (Processes p : SPI) {
-            totalTAT += p.getTat();
-            totalWAT += p.getWat();
-        }
-
-        double avgTAT = (double) totalTAT / SPI.size();
-        double avgWAT = (double) totalWAT / SPI.size();
-
-
-
-        avgLabel.setText("Average: ");
-        avgLabel.setFont(new Font("Calibri", Font.ITALIC, 14));
-        avgLabel.setForeground(Color.WHITE);
-        avgLabel.setBounds(395, 300, 200, 50);
-
-        avgtatLabel.setText(String.format("%.2f", avgTAT));
-        avgtatLabel.setFont(new Font("Calibri", Font.ITALIC, 14));
-        avgtatLabel.setForeground(Color.WHITE);
-        avgtatLabel.setBounds(520, 300, 200, 50);
-
-        avgwatLabel.setText(String.format("%.2f", avgWAT));
-        avgwatLabel.setFont(new Font("Calibri", Font.ITALIC, 14));
-        avgwatLabel.setForeground(Color.WHITE);
-        avgwatLabel.setBounds(618, 300, 200, 50);
-
-        add(avgLabel);
-        add(avgtatLabel);
-        add(avgwatLabel);
-
         //#region Gantt Chart
         gctLabel.setText("Gantt Chart");
-        gctLabel.setFont(new Font("Calibri", Font.BOLD, 20));
+        gctLabel.setFont(new Font("Calibri", Font.BOLD, 24));
         gctLabel.setForeground(Color.WHITE);
-        gctLabel.setBounds(305, 70, 200, 50);
+        gctLabel.setBounds(300, 50, 200, 50);
         add(gctLabel);
         //#endregion
         //#endregion
@@ -134,6 +103,7 @@ public class ResultPanel extends JPanel {
         SPI.clear();
         GDC.clear();
         sjob.clear();
+        end.clear();
 
         System.out.println("Algorithm: " + algo);
         for (int i = 0; i < at.length; i++) {
@@ -170,16 +140,21 @@ public class ResultPanel extends JPanel {
 
 
         sjob.add(GDC.get(0).getJob());
+        end.add(GDC.get(0).getEnd());
 
         for (int i = 1; i < GDC.size(); i++) {
             Integer currentJob = GDC.get(i).getJob();
+            Integer currentEnd = GDC.get(i).getEnd();
             Integer previousJob = GDC.get(i - 1).getJob();
+            Integer previousEnd = GDC.get(i - 1).getEnd();
             if (!currentJob.equals(previousJob)) {
                 sjob.add(currentJob);
             }
+
+            if (!currentEnd.equals(previousEnd)) {
+                end.add(currentEnd);
+            }
         }
-
-
 
         displayStats(algo);
         //#endregion
@@ -210,7 +185,7 @@ public class ResultPanel extends JPanel {
         model.setDataVector(data, columnNames);
         processorTable.setModel(model);
     
-        processorTable.setBounds(50, 200, 600, 200);
+        processorTable.setBounds(50, 200, 600, 150);
         processorTable.setBackground(panelColor);
         processorTable.setForeground(Color.WHITE);
         processorTable.setFont(new Font("ARIAL", Font.BOLD, 14));
@@ -243,12 +218,41 @@ public class ResultPanel extends JPanel {
         scrollPaneTable.setFont(new Font("ARIAL", Font.BOLD, 14));
         scrollPaneTable.setOpaque(false);
         scrollPaneTable.getViewport().setBackground(panelColor);
-        scrollPaneTable.setBounds(50, 200, 600, 200);
+        scrollPaneTable.setBounds(50, 200, 600, 150);
         scrollPaneTable.setBorder(BorderFactory.createEmptyBorder());
         //#endregion
         //#endregion
-        
-        
+
+        //#region Averages
+        int totalTAT = 0;
+        int totalWAT = 0;
+        for (Processes p : SPI) {
+            totalTAT += p.getTat();
+            totalWAT += p.getWat();
+        }
+
+        double avgTAT = (double) totalTAT / SPI.size();
+        double avgWAT = (double) totalWAT / SPI.size();
+
+        avgLabel.setText("Average: ");
+        avgLabel.setFont(new Font("Calibri", Font.ITALIC, 16));
+        avgLabel.setForeground(Color.WHITE);
+        avgLabel.setBounds(395, processorTable.getHeight() + processorTable.getY(), 100, 50);
+
+        avgtatLabel.setText(String.format("%.2f", avgTAT));
+        avgtatLabel.setFont(new Font("Calibri", Font.ITALIC, 16));
+        avgtatLabel.setForeground(Color.WHITE);
+        avgtatLabel.setBounds(avgLabel.getWidth() + avgLabel.getY() + 15, processorTable.getHeight() + processorTable.getY(), 50, 50);
+
+        avgwatLabel.setText(String.format("%.2f", avgWAT));
+        avgwatLabel.setFont(new Font("Calibri", Font.ITALIC, 16));
+        avgwatLabel.setForeground(Color.WHITE);
+        avgwatLabel.setBounds(618, processorTable.getHeight() + processorTable.getY(), 50, 50);
+
+        add(avgLabel);
+        add(avgtatLabel);
+        add(avgwatLabel);
+        //#endregion
         
         add(scrollPaneTable);
     }
@@ -264,8 +268,8 @@ public class ResultPanel extends JPanel {
         int rectHeight = 42;
         int totalWidth = sjob.size() * rectWidth;
 
-        int rectX = labelBounds.x + ((labelBounds.width - totalWidth) - 100) / 2;
-        int rectY = labelBounds.y + (labelBounds.height + 35) / 2;
+        int rectX = labelBounds.x + ((labelBounds.width - totalWidth) - 85) / 2;
+        int rectY = labelBounds.y + (labelBounds.height + 50) / 2;
 
         for (int i = 0; i < sjob.size(); i++) {
             g.setFont(new Font("Montserrat", Font.ITALIC, 12));
@@ -275,7 +279,31 @@ public class ResultPanel extends JPanel {
         // Print Job Number
         for (int i =0;i<sjob.size();i++) {
             g.setFont(new Font("Montserrat", Font.BOLD, 14));
-            g.drawString("P" + sjob.get(i), rectX + i * rectWidth + 10, rectY + 20);
+            g.drawString("P" + sjob.get(i), rectX + i * rectWidth + 13, rectY + 25);
+        }
+
+        // Print start and End
+        int start = 0; 
+        int eend = 0;
+        for (int i = 0; i < sjob.size(); i++) {
+            if (i == 0) { 
+                start = GDC.get(i).getStart();
+                eend = GDC.get(i).getEnd();
+            } else {
+                eend = end.get(i);
+            }
+            
+            int job = sjob.get(i);
+
+            int x = rectX + i * rectWidth;
+            int y = rectY + 20;
+
+            g.setFont(new Font("Montserrat", Font.BOLD, 14));
+            if (i == 0) {
+                g.drawString(String.valueOf(start), x - 5, y + 40);
+            }
+            
+            g.drawString(String.valueOf(eend), x + rectWidth - 5, y + 40);
         }
     }
 

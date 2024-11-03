@@ -59,7 +59,7 @@ public class PPS {
         List<GanttChart> ganttChart = new ArrayList<>();
         List<Processes> solvedP = new ArrayList<>();
         PriorityQueue<Processes> rqueue = new PriorityQueue<>(
-            Comparator.comparingInt((Processes p) -> p.priority));
+            Comparator.comparingInt((Processes p) -> p.priority).thenComparing(p -> p.at));
         int currentTime = 0;
         int i = 0;
         Integer lastJob = null;
