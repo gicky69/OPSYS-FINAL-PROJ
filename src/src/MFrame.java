@@ -1,11 +1,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.ComponentColorModel;
-
 import javax.swing.*;
-import javax.swing.border.*;
-import org.jdesktop.swingx.border.*;
+// import org.jdesktop.swingx.border.*;
 
 
 public class MFrame extends JFrame implements Runnable{
@@ -25,7 +22,7 @@ public class MFrame extends JFrame implements Runnable{
     JTextField input2;
     JTextField input3;
 
-    DropShadowBorder shadow = new DropShadowBorder();
+    // DropShadowBorder shadow = new DropShadowBorder();
     Color panelColor = new Color(105, 129, 141);
 
     //Result Panel
@@ -50,46 +47,48 @@ public class MFrame extends JFrame implements Runnable{
 
         //#region Title
         titleLabel = new JLabel();
-        ImageIcon titleImage = new ImageIcon(".idea/images/TITLEBAR.png");
+        ImageIcon titleImage = new ImageIcon("OPSYS-FINAL-PROJ/images/TITLEBAR.png");
         titleLabel.setIcon(titleImage);
         titleLabel.setBounds(460, 40, 400, 50);
         panel.add(titleLabel);
 
         title1Label = new JLabel("Input");
-        ImageIcon inputIcon = new ImageIcon(".idea/images/INPUT4.png");
+        ImageIcon inputIcon = new ImageIcon("OPSYS-FINAL-PROJ/images/INPUT4.png");
         title1Label.setIcon(inputIcon);
         title1Label.setBounds(120, 140, 100, 40);
         panel.add(title1Label);
 
         title2Label = new JLabel();
-        ImageIcon atImage = new ImageIcon(".idea/images/Arrival time.png");
+        ImageIcon atImage = new ImageIcon("OPSYS-FINAL-PROJ/images/Arrival time.png");
         title2Label.setIcon(atImage);
         title2Label.setBounds(147,190,100,20);
         panel.add(title2Label);
 
         title3Label = new JLabel();
-        ImageIcon btImage = new ImageIcon(".idea/images/Burst time.png");
+        ImageIcon btImage = new ImageIcon("OPSYS-FINAL-PROJ/images/Burst time.png");
         title3Label.setIcon(btImage);
         title3Label.setBounds(147,245,300,50);
         panel.add(title3Label);
 
         title4Label = new JLabel();
-        ImageIcon pImage = new ImageIcon(".idea/images/priority.png");
+        ImageIcon pImage = new ImageIcon("OPSYS-FINAL-PROJ/images/priority.png");
         title4Label.setIcon(pImage);
         title4Label.setBounds(147,315,300,50);
         panel.add(title4Label);
 
         ButttonsPanel = new JPanel();
         ButttonsPanel.setBounds(100, 130, 350, 450);
-        ButttonsPanel.setLayout(null);
         ButttonsPanel.setBackground(panelColor);
+        ButttonsPanel.setLayout(null);
 
-        shadow.setShadowColor(Color.BLACK);
-        shadow.setShadowOpacity(0.7f);
-        shadow.setShowRightShadow(true);
-        shadow.setShowBottomShadow(true);
+        // shadow.setShadowColor(Color.BLACK);
+        // shadow.setShadowSize(10);
+        // shadow.setShadowOpacity(0.7f);
+        // shadow.setShowRightShadow(true);
+        // shadow.setShowBottomShadow(true);
 
-        ButttonsPanel.setBorder(shadow);
+        // ButttonsPanel.setBorder(shadow);
+
         panel.add(ButttonsPanel);
 
         //#endregion
@@ -98,7 +97,8 @@ public class MFrame extends JFrame implements Runnable{
         input1 = new JTextField();
         // input1.setFont(f);
         input1.setBounds(50, 80, 250, 45);
-        input1.setFont(new Font("Oswald", Font.PLAIN, 14));
+        input1.setFont(new Font("Montserrat", Font.PLAIN, 16));
+        input1.setForeground(Color.BLACK);
         input1.setBackground(new Color(203,220,235));
         input1.setMargin(new Insets(13, 13, 13, 13));
         ButttonsPanel.add(input1);
@@ -106,10 +106,10 @@ public class MFrame extends JFrame implements Runnable{
         input1.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (input1.getText().equals("e.g 0 2 4 6 8") && input1.getForeground().equals(Color.gray)) {
+                if (input1.getText().equals("e.g 0 2 4 6 8") && input1.getForeground().equals(Color.GRAY)) {
                     input1.setText("");
-                    input1.setFont(new Font("Oswald", Font.PLAIN, 14));
-                    input1.setForeground(Color.black);
+                    input1.setFont(new Font("Montserrat", Font.PLAIN, 16));
+                    input1.setForeground(Color.BLACK);
                 }
             }
 
@@ -117,16 +117,16 @@ public class MFrame extends JFrame implements Runnable{
             public void focusLost(FocusEvent e) {
                 if (input1.getText().equals("")) {
                     input1.setText("e.g 0 2 4 6 8");
-                    input1.setFont(new Font("Times New Roman", Font.ITALIC, 14));
-                    input1.setForeground(Color.gray);
+                    input1.setFont(new Font("Montserrat", Font.ITALIC, 12));
+                    input1.setForeground(Color.GRAY);
                 }
             }
         });
 
         input2 = new JTextField();
         input2.setText("e.g 2 4 6 8 10");
-        input2.setFont(new Font("Times New Roman", Font.ITALIC, 14));
-        input2.setForeground(Color.gray);
+        input2.setFont(new Font("Montserrat", Font.ITALIC, 12));
+        input2.setForeground(Color.GRAY);
         input2.setBounds(50, 150, 250, 45);
         input2.setMargin(new Insets(13, 13, 13, 13));
         input2.setBackground(new Color(203,220,235));
@@ -135,10 +135,10 @@ public class MFrame extends JFrame implements Runnable{
         input2.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (input2.getText().equals("e.g 2 4 6 8 10") && input2.getForeground().equals(Color.gray)) {
+                if (input2.getText().equals("e.g 2 4 6 8 10") && input2.getForeground().equals(Color.GRAY)) {
                     input2.setText("");
-                    input2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-                    input2.setForeground(Color.black);
+                    input2.setFont(new Font("Montserrat", Font.PLAIN, 16));
+                    input2.setForeground(Color.BLACK);
                 }
             }
 
@@ -146,16 +146,16 @@ public class MFrame extends JFrame implements Runnable{
             public void focusLost(FocusEvent e) {
                 if (input2.getText().equals("")) {
                     input2.setText("e.g 2 4 6 8 10");
-                    input2.setFont(new Font("Times New Roman", Font.ITALIC, 14));
-                    input2.setForeground(Color.gray);
+                    input2.setFont(new Font("Montserrat", Font.ITALIC, 12));
+                    input2.setForeground(Color.GRAY);
                 }
             }
         });
 
         input3 = new JTextField();
         input3.setText("# Lowest - Highest");
-        input3.setFont(new Font("Times New Roman", Font.ITALIC, 14));
-        input3.setForeground(Color.gray);
+        input3.setFont(new Font("Montserrat", Font.ITALIC, 12));
+        input3.setForeground(Color.GRAY);
         input3.setBounds(50, 220, 250, 45);
         input3.setMargin(new Insets(13, 13, 13, 13));
         input3.setBackground(new Color(203,220,235));
@@ -164,10 +164,10 @@ public class MFrame extends JFrame implements Runnable{
         input3.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (input3.getText().equals("# Lowest - Highest") && input3.getForeground().equals(Color.gray)) {
+                if (input3.getText().equals("# Lowest - Highest") && input3.getForeground().equals(Color.GRAY)) {
                     input3.setText("");
-                    input3.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-                    input3.setForeground(Color.black);
+                    input3.setFont(new Font("Montserrat", Font.PLAIN, 16));
+                    input3.setForeground(Color.BLACK);
                 }
             }
 
@@ -175,8 +175,8 @@ public class MFrame extends JFrame implements Runnable{
             public void focusLost(FocusEvent e) {
                 if (input3.getText().equals("")) {
                     input3.setText("# Lowest - Highest");
-                    input3.setFont(new Font("Times New ROman", Font.ITALIC, 14));
-                    input3.setForeground(Color.gray);
+                    input3.setFont(new Font("Montserrat", Font.ITALIC, 12));
+                    input3.setForeground(Color.GRAY);
                 }
             }
         });
@@ -186,7 +186,7 @@ public class MFrame extends JFrame implements Runnable{
         //#region Radio Buttons
         sjf = new JRadioButton("SJF");
         sjf.setSelected(false);
-        sjf.setFont(new Font("Consolas", Font.BOLD, 12));
+        sjf.setFont(new Font("Calibri", Font.ITALIC, 12));
         sjf.setForeground(Color.WHITE);
         sjf.setBackground(panelColor);
         sjf.setFocusable(false);
@@ -195,7 +195,7 @@ public class MFrame extends JFrame implements Runnable{
 
         ps = new JRadioButton("NPP");
         ps.setSelected(false);
-        ps.setFont(new Font("Consolas", Font.BOLD, 12));
+        ps.setFont(new Font("Calibri", Font.BOLD, 12));
         ps.setBackground(panelColor);
         ps.setForeground(Color.WHITE);
         ps.setFocusable(false);
@@ -204,7 +204,7 @@ public class MFrame extends JFrame implements Runnable{
 
         pps = new JRadioButton("PP");
         pps.setSelected(false);
-        pps.setFont(new Font("Consolas", Font.BOLD, 12));
+        pps.setFont(new Font("Calibri", Font.BOLD, 12));
         pps.setBackground(panelColor);
         pps.setForeground(Color.WHITE);
         pps.setFocusable(false);
@@ -217,8 +217,8 @@ public class MFrame extends JFrame implements Runnable{
         group.add(pps);
 
 
-        ImageIcon startEntered = new ImageIcon(".idea/images/startclicked.png");
-        ImageIcon start = new ImageIcon(".idea/images/startnotclick.png");
+        ImageIcon startEntered = new ImageIcon("OPSYS-FINAL-PROJ/images/startclicked.png");
+        ImageIcon start = new ImageIcon("OPSYS-FINAL-PROJ/images/startnotclick.png");
         startButton = new JButton();
         startButton.setIcon(start);
         startButton.setBorder(null);
@@ -240,8 +240,8 @@ public class MFrame extends JFrame implements Runnable{
         });
 
 
-        ImageIcon exit = new ImageIcon(".idea/images/exitnotclicked.png");
-        ImageIcon exitEntered = new ImageIcon(".idea/images/exitclicked.png");
+        ImageIcon exit = new ImageIcon("OPSYS-FINAL-PROJ/images/exitnotclicked.png");
+        ImageIcon exitEntered = new ImageIcon("OPSYS-FINAL-PROJ/images/exitclicked.png");
         exitButton = new JButton();
         exitButton.setIcon(exit);
         exitButton.setBorder(null);
@@ -303,7 +303,7 @@ public class MFrame extends JFrame implements Runnable{
             //#endregion
 
             //#region Input 3
-            String p3 = input2.getText();
+            String p3 = input3.getText();
 
             String[] p3str = p3.split(" ");
 
@@ -312,6 +312,11 @@ public class MFrame extends JFrame implements Runnable{
                 prio[i] = Integer.parseInt(p3str[i]);
             }
             //#endregion
+
+            System.out.println("UNSORTED TABLE");
+            for (int i=0;i<at.length;i++) {
+                System.out.println("P" + i + " " + at[i] + " " + bt[i] + " " + prio[i]);
+            }
 
             if (sjf.isSelected()) {
                 resultPanel.ResultAlgo("sjf", at, bt, prio);
