@@ -37,7 +37,7 @@ public class ResultPanel extends JPanel {
 
     public ResultPanel() {
         //#region Frame Attributes
-        setBounds(450,80,700,510);
+        setBounds(460,95,700,510);
         setBackground(panelColor);
         setLayout(null);
         setVisible(true);
@@ -45,9 +45,9 @@ public class ResultPanel extends JPanel {
         
         //#region Title
         titleLabel = new JLabel("Output");
-        ImageIcon outputLabel = new ImageIcon("OPSYS-FINAL-PROJ/images/OUTPUT2.png");
+        ImageIcon outputLabel = new ImageIcon("images/op.png");
         titleLabel.setIcon(outputLabel);
-        titleLabel.setBounds(40, 20, 100, 40);
+        titleLabel.setBounds(30, 20, 100, 40);
         add(titleLabel);
 
         sbh = new JLabel("Gantt Chart and Table will be displayed here");

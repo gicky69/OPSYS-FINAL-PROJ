@@ -52,37 +52,37 @@ public class MFrame extends JFrame implements Runnable{
 
         //#region Title
         titleLabel = new JLabel();
-        ImageIcon titleImage = new ImageIcon("OPSYS-FINAL-PROJ/images/TITLEBAR.png");
+        ImageIcon titleImage = new ImageIcon("images/cpuscheduling.png");
         titleLabel.setIcon(titleImage);
-        titleLabel.setBounds(460, 20, 400, 50);
+        titleLabel.setBounds(460, 5, 400, 70);
         panel.add(titleLabel);
 
 
         ButttonsPanel = new JPanel();
-        ButttonsPanel.setBounds(100, 80, 350, 510);
+        ButttonsPanel.setBounds(110, 95, 350, 510);
         ButttonsPanel.setBackground(panelColor);
         ButttonsPanel.setLayout(null);
 
         title1Label = new JLabel("Input");
-        ImageIcon inputIcon = new ImageIcon("OPSYS-FINAL-PROJ/images/INPUT4.png");
+        ImageIcon inputIcon = new ImageIcon("images/INPUT4.png");
         title1Label.setIcon(inputIcon);
-        title1Label.setBounds(34, 20, 100, 40);
+        title1Label.setBounds(25, 20, 100, 40);
         ButttonsPanel.add(title1Label);
 
         title2Label = new JLabel();
-        ImageIcon atImage = new ImageIcon("OPSYS-FINAL-PROJ/images/Arrival time.png");
+        ImageIcon atImage = new ImageIcon("images/Arrival time.png");
         title2Label.setIcon(atImage);
         title2Label.setBounds(47,75,100,20);
         ButttonsPanel.add(title2Label);
 
         title3Label = new JLabel();
-        ImageIcon btImage = new ImageIcon("OPSYS-FINAL-PROJ/images/Burst time.png");
+        ImageIcon btImage = new ImageIcon("images/Burst time.png");
         title3Label.setIcon(btImage);
         title3Label.setBounds(47,135,300,50);
         ButttonsPanel.add(title3Label);
 
         title4Label = new JLabel();
-        ImageIcon pImage = new ImageIcon("OPSYS-FINAL-PROJ/images/priority.png");
+        ImageIcon pImage = new ImageIcon("images/priority.png");
         title4Label.setIcon(pImage);
         title4Label.setBounds(47,210,300,50);
         ButttonsPanel.add(title4Label);
@@ -192,7 +192,7 @@ public class MFrame extends JFrame implements Runnable{
         //#region Radio Buttons
         sjf = new JRadioButton("Shortest Job First");
         sjf.setSelected(false);
-        sjf.setFont(new Font("Calibri", Font.BOLD, 20));
+        sjf.setFont(new Font("Calibri", Font.BOLD, 18));
         sjf.setForeground(Color.WHITE);
         sjf.setBackground(panelColor);
         sjf.setFocusable(false);
@@ -201,7 +201,7 @@ public class MFrame extends JFrame implements Runnable{
 
         ps = new JRadioButton("Priority (Non-Preemptive)");
         ps.setSelected(false);
-        ps.setFont(new Font("Calibri", Font.BOLD, 20));
+        ps.setFont(new Font("Calibri", Font.BOLD, 18));
         ps.setBackground(panelColor);
         ps.setForeground(Color.WHITE);
         ps.setFocusable(false);
@@ -210,7 +210,7 @@ public class MFrame extends JFrame implements Runnable{
 
         pps = new JRadioButton("Priority (Preemptive)");
         pps.setSelected(false);
-        pps.setFont(new Font("Calibri", Font.BOLD, 20));
+        pps.setFont(new Font("Calibri", Font.BOLD, 18));
         pps.setBackground(panelColor);
         pps.setForeground(Color.WHITE);
         pps.setFocusable(false);
@@ -256,8 +256,8 @@ public class MFrame extends JFrame implements Runnable{
         group.add(pps);
 
 
-        ImageIcon startEntered = new ImageIcon("OPSYS-FINAL-PROJ/images/startclicked.png");
-        ImageIcon start = new ImageIcon("OPSYS-FINAL-PROJ/images/startnotclick.png");
+        ImageIcon startEntered = new ImageIcon("images/startnotclick.png");
+        ImageIcon start = new ImageIcon("images/startclicked.png");
         startButton = new JButton();
         startButton.setIcon(start);
         startButton.setBorder(null);
@@ -277,8 +277,8 @@ public class MFrame extends JFrame implements Runnable{
             }
         });
 
-        ImageIcon exit = new ImageIcon("OPSYS-FINAL-PROJ/images/exitnotclicked.png");
-        ImageIcon exitEntered = new ImageIcon("OPSYS-FINAL-PROJ/images/exitclicked.png");
+        ImageIcon exit = new ImageIcon("images/exitclicked.png");
+        ImageIcon exitEntered = new ImageIcon("images/exitnotclicked.png");
         exitButton = new JButton();
         exitButton.setIcon(exit);
         exitButton.setBorder(null);
