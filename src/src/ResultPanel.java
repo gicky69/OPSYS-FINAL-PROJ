@@ -52,15 +52,15 @@ public class ResultPanel extends JPanel {
         
         //#region Title
         titleLabel = new JLabel("Output");
-        ImageIcon outputLabel = new ImageIcon(".idea/images/OUTPUT2.png");
+        ImageIcon outputLabel = new ImageIcon("OPSYS-FINAL-PROJ/images/OUTPUT2.png");
         titleLabel.setIcon(outputLabel);
         titleLabel.setBounds(40, 10, 100, 40);
         add(titleLabel);
 
         sbh = new JLabel("Gantt Chart and Table will be displayed here");
         sbh.setForeground(Color.WHITE);
-        sbh.setFont(new Font("Oswald", Font.ITALIC, 16));
-        sbh.setBounds(50, 45, 500, 50);
+        sbh.setFont(new Font("Montserrat", Font.ITALIC, 14));
+        sbh.setBounds(47, 38, 500, 50);
         add(sbh);
         
         
@@ -102,7 +102,7 @@ public class ResultPanel extends JPanel {
 
         //#region Gantt Chart
         gctLabel.setText("Gantt Chart");
-        gctLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+        gctLabel.setFont(new Font("Calibri", Font.BOLD, 20));
         gctLabel.setForeground(Color.WHITE);
         gctLabel.setBounds(305, 70, 200, 50);
         add(gctLabel);
@@ -147,7 +147,25 @@ public class ResultPanel extends JPanel {
             SPI.addAll(pps.getSPI());
             GDC.addAll(pps.getGDC());
         }
-        
+
+        // Simplify GDC
+        GanttChart prev = GDC.get(0);
+        for (int i = 1; i < GDC.size(); i++) {
+            GanttChart curr = GDC.get(i);
+            if (prev.job == curr.job) {
+                prev.end = curr.end;
+                GDC.remove(i);
+                i--;
+            } else {
+                prev = curr;
+            }
+        }
+
+        System.out.println("GDC Simpliy");
+        for (GanttChart g : GDC) {
+            System.out.println(g.job + "\t" + g.start + "\t" + g.end);
+        }
+            
         displayStats(algo);
         //#endregion
     }
@@ -224,4 +242,27 @@ public class ResultPanel extends JPanel {
         
         add(scrollPaneTable);
     }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.white);
+
+        Rectangle labelBounds = gctLabel.getBounds();
+
+        int rectWidth = 42;
+        int rectHeight = 42;
+        int totalWidth = GDC.size() * rectWidth;
+
+        int rectX = labelBounds.x + ((labelBounds.width - totalWidth) - 100) / 2;
+        int rectY = labelBounds.y + (labelBounds.height + 35) / 2;
+
+        for (int i = 0; i < GDC.size(); i++) {
+            g.setFont(new Font("Montserrat", Font.BOLD, 14));
+            g.drawString("P" + GDC.get(i).job, (rectX + 13) + i * rectWidth, rectY + 25);
+            g.setFont(new Font("Montserrat", Font.ITALIC, 12));
+            g.drawRect(rectX + i * rectWidth, rectY, rectWidth, rectHeight);
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import javax.swing.*;
 
 
 public class MFrame extends JFrame implements Runnable{
+    //#region Attributes
     JLabel titleLabel;
     JPanel panel;
     JRadioButton sjf, ps, pps;
@@ -32,6 +33,8 @@ public class MFrame extends JFrame implements Runnable{
 
 
     Thread t = new Thread(this);
+
+    //#endregion
 
     public MFrame() {
         setTitle("CPU Scheduling");
